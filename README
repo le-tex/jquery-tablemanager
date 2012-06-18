@@ -1,16 +1,18 @@
 jQuery tablemanager plugin
 
-Version: 0.3
 Authors: Mathias Vonende, Gerrit Imsieke, le-tex publishing services GmbH
 Date :   2012-05-07
 
 A plugin to toggle the visibility of rows and columns in an 
 HTML Table. 
 
+Licensed under the GNU/GPL and MIT Licenses.
+
 Requires clickMenu for the column selector widget:
 http://p.sohei.org/jquery-plugins/clickmenu/
 
 Usage:
+Put the jquery-1.7.1.js and the jquery.clickmenu.js into the js Folder.
 Attach a class 'tablemanager' to each table that should be managed.
 The table must have an id attribute.
 Attach a class 'tablemanager-collapsible' to each th that should be collapsible.

@@ -1,0 +1,387 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="content-language" content="'en'" />
+    <meta http-equiv="content-style-type" content="text/css" />
+    <script src="js/jquery-1.7.1.js" type="text/javascript">//</script>
+    <script src="js/jquery.clickmenu.js" type="text/javascript">//</script>
+    <script src="js/jquery.tablemanager.js" type="text/javascript">//</script>
+    <script src="js/application.js" type="text/javascript">//</script>
+    <style type="text/css" media="screen">
+      table {width:100%;} 
+      table.text tbody tr th, td {padding: .5pt; vertical-align:top;border-bottom:1px dashed #ccc;}
+      div.example {width: 700px;}
+      p.intro {text-indent:-2em; padding-left:3em;}
+      div.code {padding: 8px; margin-left:4em; margin-bottom:1em; font-size: 9pt; font-family: monospace, Courier; background-color: #ccc; border: 1px dotted #333;}
+    </style>
+    <title>jquery-tablemanager Demo</title>
+  </head>
+  <body>
+    <div class="page">
+      <h1>jquery-tablemanager</h1>
+      <h2>Introduction</h2>
+      <div class="example">
+        <p class="intro"><i>'jquery-tablemanager'</i> is a jquery-plugin, that allows you to show and hide <i>columns</i> and <i>rows</i> in a HTML-table. It is used with '<i>jquery-1.7.1</i>'.</p>
+        <p class="intro">To use the plugin, the table needs a proper layout. Every table needs a proper <i>thead</i> and <i>tbody</i>-element. The <i>thead</i>-element must have only <i>th</i>-elements as child-nodes. A <i>th</i> used in the scope of a row must have a linear alignment throughout the table.  Every Text-Node has to be included in a <i>p</i> or a <i>span</i>-element. </p>
+        <p class="intro">Attach the tablemanager to a table, by giving it the class '<i>tablemanager</i>'. To initialize the plugin, call <b>$.fn.tablemanager</b>(<i>tab</i>, <i>opts</i>) for each table <i>tab</i>, like shown below.</p>
+        <p class="intro">HTML</p>
+        <div class="code"><p>&lt;table class="tablemanager"&gt;<br/>
+         &nbsp;&nbsp;&lt;thead&gt;<br/>
+         &nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br/>
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;th&gt;...&lt;/th&gt;<br/>
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;th&gt;...&lt;/th&gt;<br/>
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...<br/>
+         &nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br/>
+         &nbsp;&nbsp;&lt;/thead&gt;<br/>
+         &nbsp;&nbsp;&lt;tbody&gt;<br/>
+         &nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br/>
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;th&gt;...&lt;/th&gt;<br/>
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td&gt;...&lt;/td&gt;<br/>
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...<br/>
+         &nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br/>
+         &nbsp;&nbsp;&lt;/tbody&gt;<br/>
+         &nbsp;&nbsp;...<br/>
+         &lt;/table&gt;</p></div>
+        <p class="intro">JS</p>
+        <div class="code"><p>$(document).ready(function(){<br/>&nbsp;&nbsp;$('table.tablemanager').each(function() {<br/>&nbsp;&nbsp;&nbsp;&nbsp;$.fn.tablemanager($(this), {mincols: 5});<br/>&nbsp;&nbsp;});<br/>});</p></div>
+      </div>
+      <h2>A simple table</h2><div class="example">
+        <p class="intro">A triggerable column is activated, by giving the corresponding <i>th</i>-item the class '<i>tablemanager-collapsible</i>'</i></p>
+        <p class="intro">A row can also be activated, by givnig its <i>th</i>-Elements the class '<i>tablemanager-collapsible</i>'</p>
+        <div class="code"><p>&lt;table class="tablemanager"&gt;<br/>
+         &nbsp;&nbsp;&lt;thead&gt;<br/>
+         &nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br/>
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;th class="tablemanager-collapsible"&gt;...&lt;/th&gt;<br/>
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;th class="tablemanager-collapsible"&gt;...&lt;/th&gt;<br/>
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...<br/>
+         &nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br/>
+         &nbsp;&nbsp;&lt;/thead&gt;<br/>
+         &nbsp;&nbsp;...<br/>
+         &lt;/table&gt;</p></div>
+	<table class="tablemanager" style="border-collapse: collapse;">
+	<thead>
+	  <tr>
+	    <th style="border-bottom:1px solid #000000; border-right:1px solid #000000;" />
+	    <th style="padding:5px; border-bottom:1px solid #000000; border-right:1px dashed #ccc;" class="tablemanager-collapsible"><p>2<sup>nd</sup> th</p></th>
+	    <th style="padding:5px; border-bottom:1px solid #000000; border-right:1px dashed #ccc;" class="tablemanager-collapsible"><p>3<sup>rd</sup> th</p></th>
+	    <th style="padding:5px; border-bottom:1px solid #000000; border-right:1px dashed #ccc;" class="tablemanager-collapsible"><p>4<sup>th</sup> th</p></th>
+	    <th style="padding:5px; border-bottom:1px solid #000000; border-right:1px dashed #ccc;" class="tablemanager-collapsible"><p>5<sup>th</sup> th</p></th>
+	    <th style="padding:5px; border-bottom:1px solid #000000;" class="tablemanager-collapsible"><p>6<sup>th</sup> th</p></th>
+	  </tr>
+	</thead>
+	<tbody>
+	  <tr>
+	    <th style="border-right:1px solid #000000;"><span>th 1</span></th>
+	    <td><span>td 1, 1</span></td>
+	    <td><span>td 1, 2</span></td>
+	    <td><span>td 1, 3</span></td>
+	    <td><span>td 1, 4</span></td>
+	    <td><span>td 1, 5</span></td>
+	  </tr>
+	  <tr>
+	    <th style="border-right:1px solid #000000;"><span>th 2</span></th>
+	    <td><span>td 2, 1</span></td>
+	    <td><span>td 2, 2</span></td>
+	    <td><span>td 2, 3</span></td>
+	    <td><span>td 2, 4</span></td>
+	    <td><span>td 2, 5</span></td>
+	  </tr>
+	  <tr>
+	    <th style="border-right:1px solid #000000;" class="tablemanager-collapsible"><span>th 3</span></th>
+	    <td><span>td 3, 1</span></td>
+	    <td><span>td 3, 2</span></td>
+	    <td><span>td 3, 3</span></td>
+	    <td><span>td 3, 4</span></td>
+	    <td><span>td 3, 5</span></td>
+	  </tr>
+	  <tr>
+	    <th style="border-right:1px solid #000000;" class="somegeneric"><span>th 4</span></th>
+	    <td><span>td 4, 1</span></td>
+	    <td><span>td 4, 2</span></td>
+	    <td><span>td 4, 3</span></td>
+	    <td><span>td 4, 4</span></td>
+	    <td><span>td 4, 5</span></td>
+	  </tr>
+	  <tr>
+	    <th class="tablemanager-collapsible" style="border-right:1px solid #000000;"><span>th 5</span></th>
+	    <td><span>td 5, 1</span></td>
+	    <td><span>td 5, 2</span></td>
+	    <td><span>td 5, 3</span></td>
+	    <td><span>td 5, 4</span></td>
+	    <td><span>td 5, 5</span></td>
+	  </tr>
+	  <tr>
+	    <th style="border-right:1px solid #000000;" class="tablemanager-collapsible"><span>th 6</span></th>
+	    <td><span>td 6, 1</span></td>
+	    <td><span>td 6, 2</span></td>
+	    <td><span>td 6, 3</span></td>
+	    <td><span>td 6, 4</span></td>
+	    <td><span>td 6, 5</span></td>
+	  </tr>
+	</tbody>
+      </table>
+      </div><h2>A slightly more complex example</h2><div class="example">
+        <p class="intro">Columns and rows can be grouped by the '<i>colspan</i>' and '<i>rowspan</i>' attribute.</p>
+        <p class="intro">A row can also be indirect activated, by giving its <i>th</i>-Elements the class '<i>tablemanager-inherited</i>'</p>
+        <div class="code"><p>&lt;table class="tablemanager"&gt;<br/>
+         &nbsp;&nbsp;&lt;...&gt;<br/>
+         &nbsp;&nbsp;&lt;thead&gt;<br/>
+         &nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br/>
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;th colspan="3" class="tablemanager-collapsible"&gt;...&lt;/th&gt;<br/>
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;th colspan="3" class="tablemanager-collapsible"&gt;...&lt;/th&gt;<br/>
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...<br/>
+         &nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br/>
+         &nbsp;&nbsp;&lt;/thead&gt;<br/>
+         &nbsp;&nbsp;&lt;tbody&gt;<br/>
+         &nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br/>
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;th class="tablemanager-collapsible"&gt;...&lt;/th&gt;<br/>
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;th class="tablemanager-inherited"&gt;...&lt;/th&gt;<br/>
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...<br/>
+         &nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br/>
+         &nbsp;&nbsp;&lt;/thead&gt;<br/>
+         &nbsp;&nbsp;...<br/>
+         &lt;/table&gt;</p></div>
+      <table class="tablemanager complex" style="border-collapse: collapse;">
+	<thead>
+	  <tr>
+	    <th style="width: 20%; border-bottom:1px solid #000000; border-right:1px solid #000000;" />
+	    <th colspan="3" style="padding: 5px 15px 5px 15px; border-bottom:1px solid #000000; border-right:1px solid #777;" class="tablemanager-collapsible"><p><big>Category 1</big></p></th>
+	    <th colspan="2" style="padding: 5px 15px 5px 15px; border-bottom:1px solid #000000;" class="tablemanager-collapsible"><p><big>Category 2</big></p></th>
+	  </tr>
+	  <tr>
+	    <th style="border-bottom:1px solid #000000; border-right:1px solid #000000;" ><span class="small"><small>Sub Categories</small></span></th>
+	    <th style="border-bottom:1px solid #000000; border-right:1px dashed #ccc;" class="tablemanager-collapsible"><p>C<sub>1.1</sub></p></th>
+	    <th style="border-bottom:1px solid #000000; border-right:1px dashed #ccc;" class="tablemanager-collapsible"><p>C<sub>1.2</sub></p></th>
+	    <th style="border-bottom:1px solid #000000; border-right:1px solid #777;" class="tablemanager-collapsible"><p>C<sub>1.3</sub></p></th>
+	    <th style="border-bottom:1px solid #000000; border-right:1px dashed #ccc;" class="tablemanager-collapsible"><p>C<sub>2.1</sub></p></th>
+	    <th style="border-bottom:1px solid #000000;" class="tablemanager-collapsible"><p>C<sub>2.2</sub></p></th>
+	  </tr>
+	</thead>
+	<tbody style="text-align:right;">
+	  <tr>
+	    <th style="border-right:1px solid #000000;"><span><small>Property: 1</small></span></th>
+	    <td style="border-right:1px dashed #ccc;" ><span><small>0.9271</small></span></td>
+	    <td style="border-right:1px dashed #ccc;" ><span><small>0.8932</small></span></td>
+	    <td style="border-right:1px solid #777;" ><span><small>0.6312</small></span></td>
+	    <td style="border-right:1px dashed #ccc;" ><span><small>0.5213</small></span></td>
+	    <td style="padding: 2px 2px 2px 2px;"><span><small>0.4821</small></span></td>
+	  </tr>
+	  <tr>
+	    <th style="border-right:1px solid #000;"><span><small>Property: 2</small></span></th>
+	    <td style="border-right:1px dashed #ccc;"><span><small>0.7213</small></span></td>
+	    <td style="border-right:1px dashed #ccc;"><span><small>0.6213</small></span></td>
+	    <td style="border-right:1px solid #777;"><span><small>0.3211</small></span></td>
+	    <td style="border-right:1px dashed #ccc;"><span><small>0.1213</small></span></td>
+	    <td style="padding: 2px 2px 2px 2px;"><span><small>0.09821</small></span></td>
+	  </tr>
+	  <tr>
+	    <th style="border-right:1px solid #000000;" class="tablemanager-collapsible"><span><small>Property: 3</small></span></th>
+	    <td style="border-right:1px dashed #ccc;"><span><small>0.9221</small></span></td>
+	    <td style="border-right:1px dashed #ccc;"><span><small>0.7458</small></span></td>
+	    <td style="border-right:1px solid #777;"><span><small>0.5921</small></span></td>
+	    <td style="border-right:1px dashed #ccc;"><span><small>0.4211</small></span></td>
+	    <td style="padding: 2px 2px 2px 2px;"><span><small>0.3211</small></span></td>
+	  </tr>
+	  <tr>
+	    <th class="tablemanager-collapsible" style="border-right:1px solid #000000;"><span><small>Property: 4</small></span></th>
+	    <td style="border-right:1px dashed #ccc;"/>
+	    <td style="border-right:1px dashed #ccc;"/>
+	    <td style="border-right:1px solid #777;"/>
+	    <td style="border-right:1px dashed #ccc;"/>
+	    <td/>
+	  </tr>
+	  <tr>
+	    <th class="tablemanager-inherited" style="border-right:1px solid #000000;"><span><span style="font-size:0.725em;"><i>(inherited)</i> 4 A</span></span></th>
+	    <td style="border-right:1px dashed #ccc;"><span><small>0.9876</small></span></td>
+	    <td style="border-right:1px dashed #ccc;"><span><small>0.7654</small></span></td>
+	    <td style="border-right:1px solid #777;"><span><small>0.6532</small></span></td>
+	    <td style="border-right:1px dashed #ccc;"><span><small>0.5432</small></span></td>
+	    <td style="padding: 2px 2px 2px 2px;"><span><small>0.4533</small></span></td>
+	  </tr>
+	  <tr>
+	    <th class="tablemanager-inherited" style="border-right:1px solid #000000;"><span><span style="font-size:0.725em;"><i>(inherited)</i> 4 B</span></span></th>
+	    <td style="border-right:1px dashed #ccc;"><span><small>0.9753</small></span></td>
+	    <td style="border-right:1px dashed #ccc;"><span><small>0.8511</small></span></td>
+	    <td style="border-right:1px solid #777;"><span><small>0.7210</small></span></td>
+	    <td style="border-right:1px dashed #ccc;"><span><small>0.5897</small></span></td>
+	    <td style="padding: 2px 2px 2px 2px;"><span><small>0.4242</small></span></td>
+	  </tr>
+	  <tr>
+	    <th style="border-right:1px solid #000000;" class="tablemanager-collapsible"><span><small>Property: 5</small></span></th>
+	    <td style="border-right:1px dashed #ccc;"><span><small>0.7842</small></span></td>
+	    <td style="border-right:1px dashed #ccc;"><span><small>0.6631</small></span></td>
+	    <td style="border-right:1px solid #777;"><span><small>0.6322</small></span></td>
+	    <td style="border-right:1px dashed #ccc;"><span><small>0.2124</small></span></td>
+	    <td style="padding: 2px 2px 2px 2px;"><span><small>0.1234</small></span></td>
+	  </tr>
+	</tbody>
+      </table>
+      </div><h2>A text example</h2><div class="example">
+      <p class="intro">A example with text-data.</p>
+      <table class="tablemanager complex text" style="border-collapse: collapse;">
+	<thead>
+	  <tr>
+	    <th style="width: 20%; border-right:1px solid #000000;" />
+	    <th colspan="3" style="padding: 5px 15px 5px 15px; border-bottom:1px solid #000000; border-right:1px solid #777;" class="tablemanager-collapsible"><p><big>Category 1</big></p></th>
+	    <th colspan="2" style="padding: 5px 15px 5px 15px; border-bottom:1px solid #000000;" class="tablemanager-collapsible"><p><big>Category 2</big></p></th>
+	  </tr>
+	  <tr>
+	    <th style="width: 12%;border-bottom:1px solid #000000; border-right:1px solid #000000;" />
+	    <th style="border-bottom:1px solid #000000; border-right:1px dashed #ccc;" class="tablemanager-collapsible"><p>C<sub>1.1</sub></p></th>
+	    <th style="border-bottom:1px solid #000000; border-right:1px dashed #ccc;" class="tablemanager-collapsible"><p>C<sub>1.2</sub></p></th>
+	    <th style="border-bottom:1px solid #000000; border-right:1px solid #777;" class="tablemanager-collapsible"><p>C<sub>1.3</sub></p></th>
+	    <th style="border-bottom:1px solid #000000; border-right:1px dashed #ccc;" class="tablemanager-collapsible"><p>C<sub>2.1</sub></p></th>
+	    <th style="border-bottom:1px solid #000000;" class="tablemanager-collapsible"><p>C<sub>2.2</sub></p></th>
+	  </tr>
+	</thead>
+	<tbody style="text-align:left;">
+	  <tr>
+	    <th class="tablemanager-collapsible"  style="border-right:1px solid #000;"><span><small>Property: 1</small></span></th>
+	    <td style="border-right:1px dashed #ccc;" ><span><small>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, et dolore magna aliquyam erat, sed diam voluptua. At</small></span></td>
+	    <td style="border-right:1px dashed #ccc;" ><span><small>At vero eos et accusam et justo duo dolores et ea rebum. no sea</small></span></td>
+	    <td style="border-right:1px solid #777;" ><span><small>Sed diam nonumy eirmod voluptua. At vero eosdolores et ea rebum.</small></span></td>
+	    <td style="border-right:1px dashed #ccc;" ><span><small>Stet clita kasd gubergren, no  dolor sit amet.</small></span></td>
+	    <td style="padding: 2px 2px 2px 2px;"><span><small>Ut wisi enim adnostrud exerci suscipit</small></span></td>
+	  </tr>
+	  <tr>
+	    <th class="tablemanager-collapsible"  style="border-right:1px solid #000;"><span><small>Property: 2</small></span></th>
+	    <td style="border-right:1px dashed #ccc;"><span><small>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse</small></span></td>
+	    <td style="border-right:1px dashed #ccc;"><span><small>Nostrud exerci ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in  odio dignissim qui praesent</small></span></td>
+	    <td style="border-right:1px solid #777;"><span><small>Ut wisi enim ad minim veniam, et iusto odio dignissim qui blandit praesent</small></span></td>
+	    <td style="border-right:1px dashed #ccc;"><span><small>...<sup>*)</sup></small></span></td>
+	    <td style="padding: 2px 2px 2px 2px;"><span><small>Duis autem vel, illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent</small></span></td>
+	  </tr>
+	  <tr>
+	    <th class="tablemanager-inherited" style="border-right:1px solid #000000;"><span><span style="font-size:0.725em;">&nbsp;&nbsp;2 A</span></span></th>
+	    <td style="border-right:1px dashed #ccc;"><span><small><i>et iusto odio dignissim qui blandit praesent</i></small></span></td>
+	    <td style="border-right:1px dashed #ccc;"><span><small><i>enim ad minim veniam, quis nostrud exerci</i></small></span></td>
+	    <td style="border-right:1px solid #777;"><span><small><i>wisi enim ad minim veniam, quis nostrud, quis nostrud exerci</i></small></span></td>
+	    <td style="border-right:1px dashed #ccc;"><span><small><i>Duis autem vel eum iriure dolor</i></small></span></td>
+	    <td style="padding: 2px 2px 2px 2px;"><span><small><i>lobortis nisl ut aliquip ex</i></small></span></td>
+	  </tr>
+	  <tr>
+	    <th class="tablemanager-inherited" style="border-right:1px solid #000000;"><span><span style="font-size:0.725em;">&nbsp;&nbsp;2 B</span></span></th>
+	    <td style="border-right:1px dashed #ccc;"><span><small><i>...&nbsp;see&nbsp;Annex&nbsp;A</i></small></span></td>
+	    <td style="border-right:1px dashed #ccc;"><span><small><i>...&nbsp;see&nbsp;Annex&nbsp;B</i></small></span></td>
+	    <td style="border-right:1px solid #777;"><span><small><i>...&nbsp;see&nbsp;Annex&nbsp;C</i></small></span></td>
+	    <td style="border-right:1px dashed #ccc;"><span><small><i>...&nbsp;see&nbsp;Annex&nbsp;D</i></small></span></td>
+	    <td style="padding: 2px 2px 2px 2px;"><span><small>...<sup>*)</sup></small></span></td>
+	  </tr>
+	  <tr>
+	    <th style="border-right:1px solid #000000;" class="tablemanager-collapsible"><span><small>Property: 3</small></span></th>
+	    <td style="border-right:1px dashed #ccc;"><span><small>Labore et dolore magna aliquyam Lorem invidunt ut labore et dolore dolores et ea rebum.</small></span></td>
+	    <td style="border-right:1px dashed #ccc;"><span><small>Stet gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</small></span></td>
+	    <td style="border-right:1px solid #777;"><span><small>Duis exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. </small></span></td>
+	    <td style="border-right:1px dashed #ccc;"><span><small>At vero  elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna </small></span></td>
+	    <td style="padding: 2px 2px 2px 2px;"><span><small><b><i>Lorem ipsum dolor sit amet</i></b></small></span></td>
+	  <tr>
+	    <th style="border-right:1px solid #000000;"><span><small><i>Footnotes</i></small></span></th>
+	    <td colspan="5" style="border-right:1px dashed #ccc;"><p><sup><b>*)</b></sup> <small>Lorem ipsum dolor sit amet...</small></span></td>
+	  </tr>
+	</tbody>
+      </table>
+      </div><h2>A complex data table</h2><div class="example">
+      <p class="intro">A complex example.</p>
+      <table class="tablemanager complex" style="border-collapse: collapse;">
+        <thead>
+          <tr>
+            <th colspan="2" style="border-right:1px solid #000000;" ><p>Data</p></th>
+            <th colspan="3" style="padding: 5px 15px 5px 15px; border-bottom:1px solid #000000; border-right:1px solid #777;" class="tablemanager-collapsible"><p><big>Property-Group 1</big></p></th>
+            <th colspan="2" style="padding: 5px 15px 5px 15px; border-bottom:1px solid #000000;" class="tablemanager-collapsible"><p><big>Property-Group 2</big></p></th>
+          </tr>
+          <tr>
+            <th colspan="2" style="border-bottom:1px solid #000000; border-right:1px solid #000000;" />
+            <th style="border-bottom:1px solid #000000; border-right:1px dashed #ccc;" class="tablemanager-collapsible"><p>P<sub>1.1</sub></p></th>
+            <th style="border-bottom:1px solid #000000; border-right:1px dashed #ccc;" class="tablemanager-collapsible"><p>P<sub>1.2</sub></p></th>
+            <th style="border-bottom:1px solid #000000; border-right:1px solid #777;" class="tablemanager-collapsible"><p>P<sub>1.3</sub></p></th>
+            <th style="border-bottom:1px solid #000000; border-right:1px dashed #ccc;" class="tablemanager-collapsible"><p>P<sub>2.1</sub></p></th>
+            <th style="border-bottom:1px solid #000000;" class="tablemanager-collapsible"><p>P<sub>2.2</sub></p></th>
+          </tr>
+        </thead>
+        <tbody style="text-align:right;">
+          <tr>
+            <th rowspan="1" style="border-bottom:1px solid #000000;"/>
+            <th style="border-right:1px solid #000000; border-bottom:1px solid #000000;" class="tablemanager-collapsible"><span><small><i>units</i></small></span></td>
+            <td style="border-right:1px dashed #ccc;" ><span><small><i>mm</i></small></span></td>
+            <td style="border-right:1px dashed #ccc;" ><span><small><i>mm</i></small></span></td>
+            <td style="border-right:1px solid #777;" ><span><small><i>%</i></small></span></td>
+            <td style="border-right:1px dashed #ccc;" ><span><small><i>MPa</i></small></span></td>
+            <td style="padding: 2px 2px 2px 2px;"><span><small><i>m<sup>3</sup></i></small></span></td>
+          </tr>
+          <tr>
+            <th rowspan="3" style="border-right:1px solid #000000; border-bottom:1px solid #000000;" class="tablemanager-collapsible"><span><small>Data-Group 1</small></span></th>
+            <th style="border-right:1px solid #000000;" class="tablemanager-collapsible"><span><small>Data 1a</small></span></th>
+            <td style="border-right:1px dashed #ccc;" ><span><small>0.9271</small></span></td>
+            <td style="border-right:1px dashed #ccc;" ><span><small>0.8932</small></span></td>
+            <td style="border-right:1px solid #777;" ><span><small>0.6312</small></span></td>
+            <td style="border-right:1px dashed #ccc;" ><span><small>0.5213</small></span></td>
+            <td style="padding: 2px 2px 2px 2px;"><span><small>0.4821</small></span></td>
+          </tr>
+          <tr>
+            <th style="border-right:1px solid #000000;" class="tablemanager-collapsible"><span><small>Data 1b</small></span></th>
+            <td style="border-right:1px dashed #ccc;" ><span><small>0.9271</small></span></td>
+            <td style="border-right:1px dashed #ccc;" ><span><small>0.8932</small></span></td>
+            <td style="border-right:1px solid #777;" ><span><small>0.6312</small></span></td>
+            <td style="border-right:1px dashed #ccc;" ><span><small>0.5213</small></span></td>
+            <td style="padding: 2px 2px 2px 2px;"><span><small>0.4821</small></span></td>
+          </tr>
+          <tr>
+            <th style="border-right:1px solid #000000; border-bottom:1px solid #000000;" class="tablemanager-collapsible"><span><small>Data 1c</small></span></th>
+            <td style="border-right:1px dashed #ccc;" ><span><small>0.9271</small></span></td>
+            <td style="border-right:1px dashed #ccc;" ><span><small>0.8932</small></span></td>
+            <td style="border-right:1px solid #777;" ><span><small>0.6312</small></span></td>
+            <td style="border-right:1px dashed #ccc;" ><span><small>0.5213</small></span></td>
+            <td style="padding: 2px 2px 2px 2px;"><span><small>0.4821</small></span></td>
+          </tr>
+          <tr>
+	    <th rowspan="3" style="border-bottom:1px solid #000000; border-right:1px solid #000000;" class="tablemanager-collapsible"><span><small>Data-Group 2</small></span></th>
+            <th style="border-right:1px solid #000000;" class="tablemanager-collapsible"><span><small>Data 2a</small></span></th>
+            <td style="border-right:1px dashed #ccc;" ><span><small>0.9271</small></span></td>
+            <td style="border-right:1px dashed #ccc;" ><span><small>0.8932</small></span></td>
+            <td style="border-right:1px solid #777;" ><span><small>0.6312</small></span></td>
+            <td style="border-right:1px dashed #ccc;" ><span><small>0.5213</small></span></td>
+            <td style="padding: 2px 2px 2px 2px;"><span><small>0.4821</small></span></td>
+          </tr>
+          <tr>
+            <th style="border-right:1px solid #000000;" class="tablemanager-collapsible"><span><small>Data 2b</small></span></th>
+            <td style="border-right:1px dashed #ccc;" ><span><small>0.9271</small></span></td>
+            <td style="border-right:1px dashed #ccc;" ><span><small>0.8932</small></span></td>
+            <td style="border-right:1px solid #777;" ><span><small>0.6312</small></span></td>
+            <td style="border-right:1px dashed #ccc;" ><span><small>0.5213</small></span></td>
+            <td style="padding: 2px 2px 2px 2px;"><span><small>0.4821</small></span></td>
+          </tr>
+          <tr>
+            <th style=" border-bottom:1px solid #000000; border-right:1px solid #000000;" class="tablemanager-collapsible"><span><small>Data 2c</small></span></th>
+            <td style="border-right:1px dashed #ccc;" ><span><small>0.9271</small></span></td>
+            <td style="border-right:1px dashed #ccc;" ><span><small>0.8932</small></span></td>
+            <td style="border-right:1px solid #777;" ><span><small>0.6312</small></span></td>
+            <td style="border-right:1px dashed #ccc;" ><span><small>0.5213</small></span></td>
+            <td style="padding: 2px 2px 2px 2px;"><span><small>0.4821</small></span></td>
+          </tr>          <tr>
+	    <th rowspan="3" style="border-right:1px solid #000000;" class="tablemanager-collapsible"><span><small>Data-Group 3</small></span></th>
+            <th style="border-right:1px solid #000000;" class="tablemanager-collapsible"><span><small>Data 3a</small></span></th>
+            <td style="border-right:1px dashed #ccc;" ><span><small>0.9271</small></span></td>
+            <td style="border-right:1px dashed #ccc;" ><span><small>0.8932</small></span></td>
+            <td style="border-right:1px solid #777;" ><span><small>0.6312</small></span></td>
+            <td style="border-right:1px dashed #ccc;" ><span><small>0.5213</small></span></td>
+            <td style="padding: 2px 2px 2px 2px;"><span><small>0.4821</small></span></td>
+          </tr>
+          <tr>
+            <th style="border-right:1px solid #000000;" class="tablemanager-collapsible"><span><small>Data 3b</small></span></th>
+            <td style="border-right:1px dashed #ccc;" ><span><small>0.9271</small></span></td>
+            <td style="border-right:1px dashed #ccc;" ><span><small>0.8932</small></span></td>
+            <td style="border-right:1px solid #777;" ><span><small>0.6312</small></span></td>
+            <td style="border-right:1px dashed #ccc;" ><span><small>0.5213</small></span></td>
+            <td style="padding: 2px 2px 2px 2px;"><span><small>0.4821</small></span></td>
+          </tr>
+          <tr>
+            <th style="border-right:1px solid #000000;" class="tablemanager-collapsible"><span><small>Data 3c</small></span></th>
+            <td style="border-right:1px dashed #ccc;" ><span><small>0.9271</small></span></td>
+            <td style="border-right:1px dashed #ccc;" ><span><small>0.8932</small></span></td>
+            <td style="border-right:1px solid #777;" ><span><small>0.6312</small></span></td>
+            <td style="border-right:1px dashed #ccc;" ><span><small>0.5213</small></span></td>
+            <td style="padding: 2px 2px 2px 2px;"><span><small>0.4821</small></span></td>
+          </tr></tbody></table>
+    </div>
+  </body>
+</html>

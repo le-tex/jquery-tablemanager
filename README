@@ -12,8 +12,15 @@ Licensed under the GNU/GPL and MIT Licenses.
 Requires clickMenu for the column selector widget:
 http://p.sohei.org/jquery-plugins/clickmenu/
 
+Deploy:
+To use the jquery-tablemanager, you have to load jquery (working with version 1.7.1) and jquery-clickmenu (http://p.sohei.org/jquery-plugins/clickmenu/) like in this example: 
+
+    <script src="js/jquery-1.7.1.js" type="text/javascript">//</script>
+    <script src="js/jquery.clickmenu.js" type="text/javascript">//</script>
+
+To use the test-example (test.html) simply put these two files into the js-folder.
+
 Usage:
-Put the jquery-1.7.1.js and the jquery.clickmenu.js into the js Folder.
 Attach a class 'tablemanager' to each table that should be managed.
 The table must have an id attribute.
 Attach a class 'tablemanager-collapsible' to each th that should be collapsible.
@@ -25,3 +32,6 @@ Put the column heads as th elements in a thead element (instead of putting them 
 
 mincols is the minimum number of columns that the table must have 
 for a column selector widget to be rendered.
+
+In the test-example, the initialization code is found in the file: js/application.js 
+

@@ -29,18 +29,17 @@
 
 (function($){
   var cssclasses = {
-  collapsible    : "tablemanager-collapsible",
-  noncollapsible : "tablemanager-non-collapsible",
-  row_collapse   : "tablemanager-row",
-  img_widget     : "tablemanager-selector-widget",
-  inherited      : "tablemanager-inherited",
+      collapsible    : "tablemanager-collapsible",
+      img_widget     : "tablemanager-selector-widget",
+      inherited      : "tablemanager-inherited",
   };
-
-  var click_menu_mode = false;
+  
   $.fn.tablemanager = function(method, args){
     method_dispatcher(method, args);
-  };  
+  };
     
+  var mobile_ui_mode = false;
+  
   function method_dispatcher(method, args){
     if (methods[method]) {
       return methods[method].apply(this, args);
@@ -112,13 +111,32 @@
        */
       table = $(t);
       
-      click_menu_mode = false;
+      var click_menu_mode = undefined;
+      
+      if(args.clickmenumode == undefined || args.clickmenumode == false){
+          click_menu_mode = false;
+      }
+      else{
+          click_menu_mode = true;
+      }
+      
+      var isiPad = function(){return navigator.userAgent.match(/iPad/i) != null};
+      var isiPod = function(){return navigator.platform.indexOf("iPod") != -1};
+      var isiPhone = function(){return navigator.platform.indexOf("iPhone") != -1};
+      var isMobile = function(){return isiPad() || isiPhone() || isiPod()};
+
+      mobile_ui_mode = undefined;
+      if(isMobile()){
+          mobile_ui_mode = true;
+      }
+      else{
+          mobile_ui_mode = false;
+      }
       
       init_cellspace(table);
+      
       if (click_menu_mode && (args.mincols == undefined || args.mincols <= table.data('width'))) {
-        
         render_head_list(table);
-        
         
         var tlist = $('#' + table.attr('id') + '_colsList');
         tlist.clickMenu();
@@ -171,7 +189,13 @@
        * inherited by the cells' colspans
        */
       var cell = $(cl);
-      var colspan = cell.attr("colspan").match(/\d+/) - 0;
+      
+      if(cell.attr('colspan') === undefined){
+        var colspan = 1;
+      }
+      else{
+        var colspan = cell.attr("colspan").match(/\d+/) - 0;
+      }
       
       var tablebody = cell.parents("table").find("tbody");
       var tablehead = cell.parents("table").find("thead");
@@ -233,7 +257,13 @@
       var cell = $(cl);
       var table = cell.parents("table");
       
-      var rowspan  = cell.attr("rowspan").match(/\d+/) - 0;
+      if(cell.attr('rowspan') === undefined){
+        var rowspan = 1;
+      }
+      else{
+        var rowspan  = cell.attr("rowspan").match(/\d+/) - 0;
+      }
+      
       var row = cell.data("rowspace");
       var col = cell.data("colspace");
 
@@ -259,7 +289,13 @@
     var h = table.data('height');
     var co = table.data('origins');
     
-    y = row + (co[arrpos(col, row, w)].attr('rowspan').match(/\d+/) - 0);
+    if(co[arrpos(col, row, w)].attr('rowspan') === undefined){
+      y = 1;
+    }
+    else{
+      y = row + (co[arrpos(col, row, w)].attr('rowspan').match(/\d+/) - 0);
+    }
+      
     while (y < h) {
       if (co[arrpos(col, y, w)].attr('class') === undefined || 
           co[arrpos(col, y, w)].attr('class').indexOf(cssclasses.collapsible) >= 0 ) {
@@ -418,8 +454,17 @@
     var j = 0; // j: where each cell starts horizontally, in terms of the physical grid
     for (var k = 0; k < cells.length; k++) {
       var cell = $(cells[k]);
-      var cs = cell.attr('colspan').match(/\d+/) - 0;
-      var rs1 = cell.attr('rowspan').match(/\d+/) - 1;
+
+
+      if(cell.attr('colspan') === undefined || cell.attr('rowspan') === undefined){
+        var cs = 1;
+        var rs1 = 0;
+      }
+      else{
+        var cs = cell.attr('colspan').match(/\d+/) - 0;
+        var rs1 = cell.attr('rowspan').match(/\d+/) - 1;
+      }
+      
       cell.data('x-origin', j);
       cell.data('y-origin', 0);
       co[j] = cell;
@@ -452,8 +497,15 @@
           } else {
             console.log("No cell #" + (cellcounter + 1) + " at row " + (y + 1) +"?");
           }
-          var cs = cell.attr('colspan').match(/\d+/) - 0;
-          var rs1 = cell.attr('rowspan').match(/\d+/) - 1;
+
+          if(cell.attr('colspan') === undefined){
+            var cs = 1;
+            var rs1 = 0;
+          }
+          else{
+            var cs = cell.attr('colspan').match(/\d+/) - 0;
+            var rs1 = cell.attr('rowspan').match(/\d+/) - 1;
+          }
           var ap = arrpos(j, y, w);
           co[ap] = cell;
           cell.data('x-origin', j);
@@ -482,25 +534,29 @@
   }
     
   function toggle_li(listitem){
-    if (listitem.hasClass("visible")){
-      hide_li(listitem);
-    } else {
-      show_li(listitem);
+    if (!(listitem === undefined)){
+      if (listitem.hasClass("visible")){
+        hide_li(listitem);
+      } else {
+        show_li(listitem);
+      }
     }
   }
   
   function show_li(listitem){
-    listitem.removeClass("nonvisible").addClass("visible");
-    listitem.children("img").attr("src", "img/expanded.png");
-    listitem.children("ul").show();
-    //  listitem.children("p, span").css("color","#000");
+    if (!(listitem === undefined)){
+      listitem.removeClass("nonvisible").addClass("visible");
+      listitem.children("img").attr("src", "img/expanded.png");
+      listitem.children("ul").show();
+    }
   }
   
   function hide_li(listitem){
-    listitem.removeClass("visible").addClass("nonvisible");
-    listitem.children("img").attr("src", "img/collapsed.png");
-    listitem.children("ul").hide();
-    //  listitem.children("p, span").css("color","#ccc");
+    if (!(listitem === undefined)){
+      listitem.removeClass("visible").addClass("nonvisible");
+      listitem.children("img").attr("src", "img/collapsed.png");
+      listitem.children("ul").hide();
+    }
   }
 
   function hide_col(tbody, index, colspan){

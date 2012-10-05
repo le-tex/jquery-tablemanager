@@ -128,7 +128,7 @@
           // we consider very small sceen-viewports as mobile devices
           is_smallScreen = $(window).width() <= 480;
           
-          is_mobile = is_iPad || is_iPhone || is_iPod || is_Android || is_BlackBerry || is_smallScreen || true;
+          is_mobile = is_iPad || is_iPhone || is_iPod || is_Android || is_BlackBerry || is_smallScreen;
           
           return is_mobile;
       };

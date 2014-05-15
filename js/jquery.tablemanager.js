@@ -40,6 +40,7 @@
     
   var mobile_ui_mode = false;
   var click_menu_mode = undefined;
+  var img_folder = "img/";
   
   function method_dispatcher(method, args){
     if (methods[method]) {
@@ -118,6 +119,9 @@
       else{
           click_menu_mode = true;
       }
+      if(args.imgfolder != undefined){
+          img_folder = args.imgfolder;
+      }
       
       var isMobile = function(){
           is_iPad = navigator.userAgent.match(/iPad/i) != null;
@@ -143,27 +147,26 @@
         var tlist = $('#' + table.attr('id') + '_colsList');
         tlist.clickMenu();
                 
-        close_li = $('<div class="main close"><img src="img/close.png" alt="close menu" title="close click menu"/></div>');
+        close_li = $('<div class="main close"><img src="' + img_folder + 'close.png" alt="close menu" title="close click menu"/></div>');
         close_li.click(function(evt){
             evt.stopPropagation();
             tabid = $(this).parents("table").attr("id");
             $('#' + table.attr('id') + '_colsList').trigger("closemenu");
         });
-        tlist.find('.innerbox').prepend(close_li);
+        
+        tlist.find('.innerBox').prepend(close_li);
         
         tlist.bind("closemenu-inner", function(evt){
           evt.stopPropagation();
-          //tlist.find("div.close").css("visibility", "hidden");
         });
         tlist.find("div.close:first").click(function(evt){
           evt.stopPropagation();
-          //tlist.find("div.close").css("visibility", "visible");
         });
       }
       
       // Add toggle icons:
       table.find("th." + cssclasses.collapsible).each(function(){
-        $(this).prepend('<img class="' + cssclasses.img_widget + '" src="img/expanded.png" />')
+        $(this).prepend('<img class="' + cssclasses.img_widget + '" src="' + img_folder + 'expanded.png" />')
       });
       
       // Remove the toggle icons at the intersection of the column and row heads:
@@ -348,14 +351,14 @@
     var table_id = table.attr('id');
     var ul = $('<ul id="' + table_id + '_colsList"></ul>');
     
-    var li = $('<li><img src="img/selectcol.png" alt="select columns" title="select columns"/></li>');
+    var li = $('<li><img src="' + img_folder + 'selectcol.png" alt="select columns" title="select columns"/></li>');
     
     li.append(listify_head_row(table, table.data('headwidth'), table.data('width') - 1, 0));
     
     ul.append(li);
     firsthead.prepend(ul);
     
-    var helptext = $( "<div class='tablemanager-helptext'><span class='helptext'>In the following table, click on <img src='img/collapsed.png'/>/<img src='img/expanded.png'/> to hide/display columns/rows or on <img src='img/selectcol.png'/> for a compact column toggler.</span></div>").show();
+    var helptext = $( "<div class='tablemanager-helptext'><span class='helptext'>In the following table, click on <img src='" + img_folder + "collapsed.png'/>/<img src='" + img_folder + "expanded.png'/> to hide/display columns/rows or on <img src='" + img_folder + "selectcol.png'/> for a compact column toggler.</span></div>").show();
     
     helptext.find("span").css("background-color", firsthead.css("background-color"));
     var ok = $('<input type="button" id="' + table_id + '_gotit" value="Ok, got it!"/>');
@@ -393,7 +396,7 @@
         var cell = group_starts[j];
         var li = $('<li class="visible"></li>');
         li.append(cell.html());
-        var img = $('<img style="display:inline; padding: 5px; list-style:none;" src="img/expanded.png" />');
+        var img = $('<img style="display:inline; padding: 5px; list-style:none;" src="' + img_folder + 'expanded.png" />');
         img.data('applied_cell', cell);
         
         if(mobile_ui_mode){
@@ -569,7 +572,7 @@
   function show_li(listitem){
     if (!(listitem === undefined)){
       listitem.removeClass("nonvisible").addClass("visible");
-      listitem.children("img").attr("src", "img/expanded.png");
+      listitem.children("img").attr("src", img_folder + "expanded.png");
       listitem.children("ul").show();
     }
   }
@@ -577,7 +580,7 @@
   function hide_li(listitem){
     if (!(listitem === undefined)){
       listitem.removeClass("visible").addClass("nonvisible");
-      listitem.children("img").attr("src", "img/collapsed.png");
+      listitem.children("img").attr("src", img_folder + "collapsed.png");
       listitem.children("ul").hide();
     }
   }
@@ -601,18 +604,18 @@
 
   function collapsed(cell) {
     img = cell.find("img." + cssclasses.img_widget);
-    if (img.attr("src") == "img/collapsed.png") {
-      img.attr("src", "img/expanded.png");
+    if (img.attr("src") == img_folder + "collapsed.png") {
+      img.attr("src", img_folder + "expanded.png");
       return true;
     } else {
-      img.attr("src", "img/collapsed.png");
+      img.attr("src", img_folder + "collapsed.png");
       return false;
     }
   };      
 
   function hide_cell(col){
     if(col.is("th")){
-      col.find("img." + cssclasses.img_widget).attr("src", "img/collapsed.png");
+      col.find("img." + cssclasses.img_widget).attr("src", img_folder + "collapsed.png");
     }
     col.addClass("col-nonvisible");
     col.children("p,span").hide();
@@ -620,7 +623,7 @@
   
   function show_cell(col){
     if(col.is("th")){
-      col.find("img." + cssclasses.img_widget).attr("src", "img/expanded.png");
+      col.find("img." + cssclasses.img_widget).attr("src", img_folder + "expanded.png");
     }
     col.removeClass("col-nonvisible"); 
     if(!col.hasClass("row-nonvisible")){

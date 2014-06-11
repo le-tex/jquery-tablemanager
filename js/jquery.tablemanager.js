@@ -38,9 +38,10 @@
     method_dispatcher(method, args);
   };
     
-  var mobile_ui_mode = false;
-  var click_menu_mode = undefined;
-  var img_folder = "img/";
+  var mobile_ui_mode = false,
+      click_menu_mode = undefined,
+      enable_column_collapse_on_desktop = false,
+      img_folder = "img/";
   
   function method_dispatcher(method, args){
     if (methods[method]) {
@@ -119,6 +120,7 @@
       else{
           click_menu_mode = true;
       }
+      enable_column_collapse_on_desktop = args.enablecolumncollapseondesktop;
       if(args.imgfolder != undefined){
           img_folder = args.imgfolder;
       }
@@ -136,11 +138,9 @@
           
           return is_mobile;
       };
-      
       mobile_ui_mode = isMobile() ? true : false;
-      
       init_cellspace(table);
-      
+
       if (click_menu_mode && (args.mincols == undefined || args.mincols <= table.data('width'))) {
         render_head_list(table);
         
@@ -163,11 +163,13 @@
           evt.stopPropagation();
         });
       }
-      
       // Add toggle icons:
-      table.find("th." + cssclasses.collapsible).each(function(){
-        $(this).prepend('<img class="' + cssclasses.img_widget + '" src="' + img_folder + 'expanded.png" />')
-      });
+
+      if(args.mincols !== undefined && args.mincols <= table.data('width')){
+        table.find("th." + cssclasses.collapsible).each(function(){
+          $(this).prepend('<img class="' + cssclasses.img_widget + '" src="' + img_folder + 'expanded.png" />')
+        });
+      }
       
       // Remove the toggle icons at the intersection of the column and row heads:
       var co = table.data('origins'), w = table.data('width'), hw = table.data('headwidth'), hh = table.data('headheight');
@@ -177,7 +179,7 @@
           if (cell != undefined) cell.children("img." + cssclasses.img_widget).remove();
         }
       }
-      if(mobile_ui_mode){
+      if(mobile_ui_mode || (enable_column_collapse_on_desktop && args.mincols == undefined || args.mincols <= table.data('width'))){
           table.find("thead th." + cssclasses.collapsible).click(function(){
               methods.toggle_col($(this));
           });
@@ -398,7 +400,6 @@
         li.append(cell.html());
         var img = $('<img style="display:inline; padding: 5px; list-style:none;" src="' + img_folder + 'expanded.png" />');
         img.data('applied_cell', cell);
-        
         if(mobile_ui_mode){
             li.click(function(evt){
                 evt.stopPropagation();
@@ -614,6 +615,7 @@
   };      
 
   function hide_cell(col){
+
     if(col.is("th")){
       col.find("img." + cssclasses.img_widget).attr("src", img_folder + "collapsed.png");
     }
